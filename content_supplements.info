@@ -1,0 +1,5 @@
+name = Content supplements
+description = Module adding supplents into selected content types
+core = 7.x
+php = 5.6
+version = 1.0

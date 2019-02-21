@@ -1,0 +1,84 @@
+<?php
+
+function content_supplements_schema()
+{
+    $schema['content_supplements_category'] = array(
+        'description' => 'The table of content supplements categories.',
+        'fields' => array(
+                'csc_id' => array(
+                    'type'     => 'serial',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE
+                ),
+                'csc_name' => array(
+                    'type'     => 'varchar',
+                    'length'   => '64',
+                    'not null' => TRUE
+                ),
+                'csc_desc' => array(
+                    'type'     => 'varchar',
+                    'not null' => FALSE
+                ),
+        ),
+        'primary key' => array('csc_id'),
+    );
+    $schema['content_supplements_items'] = array(
+        'fields' => array(
+                'csi_id' => array(
+                    'type'     => 'serial',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE
+                ),
+                'csc_id' => array(
+                    'type'     => 'int',
+                    'size'     => 'big',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE
+                ),
+                'csi_name' => array(
+                    'type'     => 'varchar',
+                    'length'   => '64',
+                    'not null' => TRUE
+                ),
+                'csi_desc' => array(
+                    'type'     => 'varchar',
+                    'not null' => FALSE
+                )
+        ),
+        'primary key' => array('csi_id'),
+        'foreign keys' => array(
+                'fk_category' => array(
+                    'table' => 'content_supplements_category',
+                    'columns' => array('csc_id' => 'csi_id'),
+                ),
+        ),
+    );
+    $schema['content_supplements_node_join'] = array(
+        'fields' => array(
+                'csi_id' => array(
+                    'type'     => 'int',
+                    'size'     => 'big',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE
+                ),
+                'nid' => array(
+                    'type'     => 'int',
+                    'size'     => 'big',
+                    'unsigned' => TRUE,
+                    'not null' => TRUE
+                )
+        ),
+        'primary key' => array('csi_id', 'nid'),
+        'foreign keys' => array(
+                'fk_item' => array(
+                    'table' => 'content_supplements_items',
+                    'columns' => array('csi_id' => 'id'),
+                ),
+                'fk_node' => array(
+                    'table' => 'node',
+                    'columns' => array('nid' => 'nid'),
+                ),
+        ),
+    );
+    return $schema;
+}

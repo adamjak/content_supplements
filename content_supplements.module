@@ -1,0 +1,15 @@
+<?php
+
+function content_supplements_menu() {
+	$items['content_supplements_list'] = array(
+		'title' => t("Content supplents list"),
+		'page callback' => 'content_supplements_list',
+		'access arguments' => array('access content'),
+		'type' => MENU_CALLBACK,
+	);
+	return $items;
+}
+
+function content_supplements_list() {
+	return "<p>ahoj svet</p>";
+}
